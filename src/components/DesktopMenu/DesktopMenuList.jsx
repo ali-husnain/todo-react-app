@@ -24,7 +24,6 @@ function DesktopMenuList(props) {
   ];
   let activeStyle = {
     textDecoration: "none",
-    // backgroundColor: "yellow",
     color: "#ffc148",
   };
 
@@ -33,7 +32,6 @@ function DesktopMenuList(props) {
     color: "grey",
   };
 
-  // console.log(location);
   return (
     <motion.div
       initial={{ x: "-100vw" }}
@@ -68,7 +66,9 @@ function DesktopMenuList(props) {
           <ListItem sx={{ flexGrow: 1 }}>
             <ListItemButton
               onClick={() => {
-                todoCtx.logOutHandler();
+                todoCtx.setIsLoggedIn(false);
+                todoCtx.setMyToken("");
+                localStorage.removeItem("myTodoToken");
               }}
               sx={{
                 alignSelf: "flex-end",

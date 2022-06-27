@@ -46,8 +46,7 @@ function AddTodo() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+          "x-access-token": `${todoCtx.myToken}`,
         },
         body: JSON.stringify({ name: name }),
       }

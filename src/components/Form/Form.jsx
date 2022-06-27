@@ -25,8 +25,7 @@ function Form() {
       }`,
       {
         method: "POST",
-        headers: new Headers({'content_type': 'application/json'}),
-        mode: 'no-cors',
+        headers: new Headers({ "Content-Type": "application/json" }),
         body: haveAccount
           ? JSON.stringify({ username: username, password: password })
           : JSON.stringify({
@@ -38,7 +37,13 @@ function Form() {
     );
 
     const res = await data.json();
-    console.log(res);
+    if (res.code === 200) {
+      todoCtx.setIsLoggedIn(true);
+      localStorage.setItem("myTodoToken", res.data.accessToken);
+      todoCtx.setMyToken(res.data.accessToken);
+    } else {
+      todoCtx.setIsLoggedIn(false);
+    }
   };
 
   return (
@@ -93,7 +98,6 @@ function Form() {
           disableElevation
           color="warning"
           onClick={() => {
-            console.log("clicked");
             sendCredentials(username, email, password);
           }}
         >

@@ -59,18 +59,15 @@ function TodoList() {
   const [currTodo, setCurrTodo] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const todoCtx = useContext(TodoContext);
-  console.log(todoCtx);
 
   const completeTodo = async (id) => {
-    console.log(id);
     const data = await fetch(
       "https://mytodo-express-api.herokuapp.com/api/task/markcomplete",
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+          "x-access-token": `${todoCtx.myToken}`,
         },
         body: JSON.stringify({ id: id }),
       }
@@ -78,15 +75,13 @@ function TodoList() {
     fetchAllTodo();
   };
   const deleteTodo = async (id) => {
-    console.log(id);
     const data = await fetch(
       `https://mytodo-express-api.herokuapp.com/api/task/delete/${id}`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+          "x-access-token": `${todoCtx.myToken}`,
         },
         body: JSON.stringify({ id: id }),
       }
@@ -101,8 +96,7 @@ function TodoList() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+          "x-access-token": `${todoCtx.myToken}`,
         },
       }
     );
@@ -122,8 +116,7 @@ function TodoList() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+          "x-access-token": `${todoCtx.myToken}`,
         },
         body: JSON.stringify({ id: id, name: name }),
       }
@@ -167,7 +160,6 @@ function TodoList() {
                 variant={"succcess"}
                 onClick={() => {
                   setCurrTodo(el);
-                  console.log(el, "mow");
                   setIsModalOpen(true);
                 }}
               >

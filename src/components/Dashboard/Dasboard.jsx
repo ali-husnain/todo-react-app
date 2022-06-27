@@ -6,11 +6,6 @@ import Chart from "react-apexcharts";
 function Dasboard() {
   const [progress, setProgress] = useState();
   const todoCtx = useContext(TodoContext);
-  console.log(todoCtx.allTodos);
-
-  todoCtx.allTodos.forEach((el) => {
-    console.log(el);
-  });
 
   const options = {
     pie: {
@@ -69,7 +64,29 @@ function Dasboard() {
       },
     },
   };
-  const series = [44, 55];
+
+  const data2 = todoCtx.completedTodos.length;
+  const series = [todoCtx.allTodos.length, todoCtx.completedTodos.length];
+
+  const fetchAllTodo = async () => {
+    const data = await fetch(
+      "https://mytodo-express-api.herokuapp.com/api/task/progress",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `${todoCtx.myToken}`,
+        },
+      }
+    );
+
+    const response = await data.json();
+    const inComplete = response.data.inprogress;
+    const completed = response.data.completed;
+
+    todoCtx.setAllTodo(inComplete);
+    todoCtx.setCompletedTodo(completed);
+  };
 
   useEffect(() => {
     const fetchStats = async (id) => {
@@ -79,16 +96,16 @@ function Dasboard() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "x-access-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2MzEyMDE3LCJleHAiOjE2NTYzOTg0MTd9.9hqLd5aDKk6RHaUwmlE06lq19jX1suDDbdanUx-qoik",
+            "x-access-token": `${todoCtx.myToken}`,
           },
         }
       );
 
       const res = await data.json();
-      setProgress(res.data.percentage);
+      setProgress(res.data?.percentage);
     };
     fetchStats();
+    fetchAllTodo();
   }, []);
 
   return (
