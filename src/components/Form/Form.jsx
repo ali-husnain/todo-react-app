@@ -19,18 +19,14 @@ function Form() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const sendCredentials = async (username, email, password) => {
-    console.log(username, email, password);
-    console.log(
-      `https://mytodo-express-api.herokuapp.com/api/auth/${
-        haveAccount ? `signin` : `signup`
-      }`
-    );
     const data = await fetch(
       `https://mytodo-express-api.herokuapp.com/api/auth/${
         haveAccount ? `signin` : `signup`
       }`,
       {
         method: "POST",
+        headers: new Headers({'content_type': 'application/json'}),
+        mode: 'no-cors',
         body: haveAccount
           ? JSON.stringify({ username: username, password: password })
           : JSON.stringify({
