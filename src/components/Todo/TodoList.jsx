@@ -16,6 +16,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import { styled } from "@mui/material/styles";
 
+const apiUrl = 'http://localhost:3000';
+
 const DisplayTodoList = styled(Paper)(({ theme }) => ({
   backgroundColor: "#2F394F",
   color: "white",
@@ -62,7 +64,7 @@ function TodoList() {
 
   const completeTodo = async (id) => {
     const data = await fetch(
-      "https://mytodo-express-api.herokuapp.com/api/task/markcomplete",
+      `${apiUrl}/api/task/markcomplete`,
       {
         method: "PATCH",
         headers: {
@@ -76,7 +78,7 @@ function TodoList() {
   };
   const deleteTodo = async (id) => {
     const data = await fetch(
-      `https://mytodo-express-api.herokuapp.com/api/task/delete/${id}`,
+      `${apiUrl}/api/task/delete/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -91,7 +93,7 @@ function TodoList() {
 
   const fetchAllTodo = async () => {
     const data = await fetch(
-      "https://mytodo-express-api.herokuapp.com/api/task/progress",
+      `${apiUrl}/api/task/progress`,
       {
         method: "GET",
         headers: {
@@ -111,7 +113,7 @@ function TodoList() {
 
   const updateTodo = async (id, name) => {
     const data = fetch(
-      "https://mytodo-express-api.herokuapp.com/api/task/update",
+      `${apiUrl}/api/task/update`,
       {
         method: "PATCH",
         headers: {

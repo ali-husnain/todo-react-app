@@ -6,6 +6,8 @@ import { styled } from "@mui/material/styles";
 import React from "react";
 import { motion } from "framer-motion";
 
+const apiUrl = 'http://localhost:3000';
+
 const FormInput = styled(TextField)(({ theme }) => ({
   "& ::after": {
     borderBottom: `2px solid ${theme.palette.warning.light} !important`,
@@ -20,7 +22,7 @@ function Form() {
   const [password, setPassword] = useState();
   const sendCredentials = async (username, email, password) => {
     const data = await fetch(
-      `https://mytodo-express-api.herokuapp.com/api/auth/${
+      `${apiUrl}/api/auth/${
         haveAccount ? `signin` : `signup`
       }`,
       {

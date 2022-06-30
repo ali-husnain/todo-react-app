@@ -65,12 +65,13 @@ function Dasboard() {
     },
   };
 
-  const data2 = todoCtx.completedTodos.length;
   const series = [todoCtx.allTodos.length, todoCtx.completedTodos.length];
+  
+  const apiUrl = 'http://localhost:3000';
 
   const fetchAllTodo = async () => {
     const data = await fetch(
-      "https://mytodo-express-api.herokuapp.com/api/task/progress",
+      `${apiUrl}/api/task/progress`,
       {
         method: "GET",
         headers: {
@@ -91,7 +92,7 @@ function Dasboard() {
   useEffect(() => {
     const fetchStats = async (id) => {
       const data = await fetch(
-        `https://mytodo-express-api.herokuapp.com/api/task/progress`,
+        `${apiUrl}/api/task/progress`,
         {
           method: "GET",
           headers: {

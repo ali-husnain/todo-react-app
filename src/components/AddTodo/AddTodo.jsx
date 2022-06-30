@@ -11,6 +11,8 @@ import {
 
 import { styled } from "@mui/material/styles";
 
+const apiUrl = 'http://localhost:3000';
+
 const DisplayTodoList = styled(Paper)(({ theme }) => ({
   backgroundColor: "#2F394F",
   color: "white",
@@ -41,7 +43,7 @@ function AddTodo() {
 
   const createTodo = async (name) => {
     const data = fetch(
-      "https://mytodo-express-api.herokuapp.com/api/task/create",
+      `${apiUrl}/api/task/create`,
       {
         method: "POST",
         headers: {
